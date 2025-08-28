@@ -1,16 +1,611 @@
-## Hi there 👋
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luiz Henrique - Psicólogo</title>
+    
+    <meta name="description" content="Psicólogo Luiz Henrique em Mossoró, RN. Terapia online e presencial para ansiedade, depressão, relacionamentos e autoconhecimento. Agende sua conversa.">
+    <meta name="keywords" content="psicólogo, psicologia, terapia, Mossoró, RN, online, presencial, ansiedade, depressão, Luiz Henrique">
+    <meta name="author" content="Luiz Henrique Gadelha Fernandes">
 
-<!--
-**luizpsic/luizpsic** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+    <meta property="og:title" content="Luiz Henrique - Psicólogo em Mossoró, RN">
+    <meta property="og:description" content="Um espaço de acolhimento para sua jornada de bem-estar e autoconhecimento. Terapia online e presencial.">
+    <meta property="og:image" content="https://i.imgur.com/8i2i8Yj.png">
+    <meta property="og:url" content="https://www.luizhenriquepsicologo.com.br">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
 
-Here are some ideas to get you started:
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts e Font Awesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <style>
+        :root {
+            --fundo-escuro: #0f172a; /* bg-slate-900 */
+            --fundo-card: #1e293b;  /* bg-slate-800 */
+            --destaque-roxo: #8B5CF6; /* Cor violet-400 */
+            --destaque-azul: #38BDF8;
+            --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+        }
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+        html {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            background-color: var(--fundo-escuro);
+            color: #e2e8f0; /* text-slate-200 */
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* --- ANIMAÇÕES KEYFRAMES MODERNIZADAS --- */
+        @keyframes scroll {
+            to { transform: translateX(calc(-50% - 0.5rem)); }
+        }
+        
+        @keyframes breathe-cycle {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(139, 92, 246, 0.2); }
+            25%, 50% { transform: scale(1.8); box-shadow: 0 0 60px rgba(139, 92, 246, 0.6); }
+            87.5% { transform: scale(1); box-shadow: 0 0 20px rgba(139, 92, 246, 0.2); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes backgroundPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        /* --- CLASSES DE ANIMAÇÃO E EFEITOS --- */
+        .scroller__inner {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 1rem;
+            animation: scroll 40s linear infinite; /* Velocidade ajustada */
+        }
+        .scroller:hover .scroller__inner {
+            animation-play-state: paused;
+        }
+        
+        .breathing-animation {
+            animation: breathe-cycle 16s var(--ease-out-quart) infinite;
+        }
+
+        /* Efeito de revelação aprimorado, sem delay */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s var(--ease-out-quart), transform 1s var(--ease-out-quart);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Cabeçalho com transição suave */
+        header {
+            transition: background-color 0.4s ease, backdrop-filter 0.4s ease, transform 0.5s var(--ease-out-quart);
+        }
+        header.scrolled {
+            background-color: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+        }
+        header.header-hidden {
+            transform: translateY(-100%);
+        }
+
+        /* Acordeão com transição mais suave */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s var(--ease-out-quart), padding 0.6s var(--ease-out-quart);
+        }
+        .accordion-content p {
+            opacity: 0;
+            transition: opacity 0.4s ease 0.2s;
+        }
+        .accordion-item.active .accordion-content p {
+            opacity: 1;
+        }
+
+        /* Botão CTA com efeito de brilho */
+        .cta-button {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease-in-out;
+            background-image: linear-gradient(to right, #7C3AED 0%, #4F46E5 51%, #7C3AED 100%);
+            background-size: 200% auto;
+            z-index: 1;
+        }
+        .cta-button:hover {
+            background-position: right center;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+        }
+
+        /* Efeito de fundo pulsante na seção inicial */
+        #inicio {
+            animation: backgroundPulse 15s ease-in-out infinite;
+        }
+        
+        /* Efeito de inclinação 3D nos cards */
+        .glow-card {
+            transition: transform 0.4s var(--ease-out-quart), box-shadow 0.4s var(--ease-out-quart);
+            transform: perspective(1000px); /* Prepara o elemento para a transformação 3D */
+        }
+        .glow-card:hover {
+            transform: perspective(1000px) translateY(-8px) rotateX(4deg) rotateY(-2deg);
+            box-shadow: 0 8px 35px rgba(139, 92, 246, 0.3);
+        }
+        .glow-card .card-icon {
+            transition: transform 0.4s var(--ease-out-quart);
+        }
+        .glow-card:hover .card-icon {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        /* Animação do menu mobile */
+        #mobile-menu {
+            transition: transform 0.4s var(--ease-out-quart), opacity 0.4s ease;
+            transform: translateY(-20px);
+            opacity: 0;
+            pointer-events: none;
+        }
+        #mobile-menu.open {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body class="text-slate-300">
+
+    <!-- Cabeçalho -->
+    <header id="main-header" class="fixed top-0 w-full z-50 py-4">
+        <nav class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#inicio" aria-label="Ir para o início da página">
+                <img src="https://i.imgur.com/pOWEMdl.png" alt="Logo Luiz Henrique Psicólogo" class="h-12 w-auto">
+            </a>
+            <ul class="hidden lg:flex items-center space-x-8">
+                <li><a href="#ajuda" class="text-gray-400 hover:text-violet-400 transition-colors duration-300 font-medium">Como Posso Ajudar</a></li>
+                <li><a href="#como-funciona" class="text-gray-400 hover:text-violet-400 transition-colors duration-300 font-medium">Como Funciona</a></li>
+                <li><a href="#sobre" class="text-gray-400 hover:text-violet-400 transition-colors duration-300 font-medium">Sobre Mim</a></li>
+                <li><a href="#contato" class="cta-button inline-block text-white font-bold py-2 px-6 rounded-full">Contato</a></li>
+            </ul>
+            <button id="mobile-menu-button" class="lg:hidden text-2xl text-gray-100" aria-label="Abrir menu de navegação">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+        <!-- Menu Mobile -->
+        <div id="mobile-menu" class="lg:hidden bg-slate-800/90 backdrop-blur-sm mt-2 mx-4 rounded-lg shadow-xl">
+            <a href="#ajuda" class="block text-center py-3 px-4 text-gray-300 hover:text-violet-400 hover:bg-slate-700/50 rounded-t-lg">Como Posso Ajudar</a>
+            <a href="#como-funciona" class="block text-center py-3 px-4 text-gray-300 hover:text-violet-400 hover:bg-slate-700/50">Como Funciona</a>
+            <a href="#sobre" class="block text-center py-3 px-4 text-gray-300 hover:text-violet-400 hover:bg-slate-700/50">Sobre Mim</a>
+            <a href="#contato" class="block text-center py-3 px-4 text-gray-300 hover:text-violet-400 hover:bg-slate-700/50 rounded-b-lg">Contato</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Seção Início -->
+        <section id="inicio" class="h-screen bg-cover bg-center flex items-center justify-center relative" style="background-image: url('https://i.imgur.com/zz5WZX9.png');">
+            <div class="absolute inset-0 bg-slate-900 bg-opacity-70"></div>
+            <div class="relative text-center text-white px-4 flex flex-col items-center">
+                <h1 class="text-5xl md:text-7xl font-black tracking-tight" style="animation: slideUp 1s var(--ease-out-quart) forwards;">Luiz Henrique</h1>
+                <p class="mt-3 text-xl md:text-2xl font-light tracking-wider" style="animation: slideUp 1s var(--ease-out-quart) 0.2s forwards; opacity: 0;">Psicólogo</p>
+                <p class="mt-4 text-lg md:text-xl font-light tracking-widest" style="animation: slideUp 1s var(--ease-out-quart) 0.4s forwards; opacity: 0;">CRP XX/XXXX</p>
+            </div>
+        </section>
+
+        <!-- Seção Como Posso Ajudar -->
+        <section id="ajuda" class="py-24 bg-slate-900">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold text-white mb-4 reveal">Como Posso Ajudar</h2>
+                <p class="max-w-3xl mx-auto text-lg text-gray-400 mb-16 reveal">Encontre um caminho para o bem-estar e o autoconhecimento. Estou aqui para apoiar você em sua jornada.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Cards com efeito glow -->
+                    <div class="glow-card bg-slate-800/50 backdrop-blur-lg rounded-xl border border-white/10 p-8 text-center reveal"><div class="flex justify-center mb-4"><i class="card-icon fa-solid fa-bolt-lightning text-5xl text-violet-400"></i></div><h3 class="text-2xl font-bold text-white mb-2">Ansiedade</h3><p class="text-gray-400">Aprenda a gerenciar preocupações, medos e pânico para viver com mais calma e presença.</p></div>
+                    <div class="glow-card bg-slate-800/50 backdrop-blur-lg rounded-xl border border-white/10 p-8 text-center reveal"><div class="flex justify-center mb-4"><i class="card-icon fa-solid fa-heart-crack text-5xl text-violet-400"></i></div><h3 class="text-2xl font-bold text-white mb-2">Relacionamentos</h3><p class="text-gray-400">Desenvolva vínculos mais saudáveis, seja em relações amorosas, familiares ou de amizade.</p></div>
+                    <div class="glow-card bg-slate-800/50 backdrop-blur-lg rounded-xl border border-white/10 p-8 text-center reveal"><div class="flex justify-center mb-4"><i class="card-icon fa-solid fa-cloud-rain text-5xl text-violet-400"></i></div><h3 class="text-2xl font-bold text-white mb-2">Depressão</h3><p class="text-gray-400">Encontre apoio para superar a tristeza profunda e resgatar a alegria de viver.</p></div>
+                    <div class="glow-card bg-slate-800/50 backdrop-blur-lg rounded-xl border border-white/10 p-8 text-center reveal"><div class="flex justify-center mb-4"><i class="card-icon fa-solid fa-user-shield text-5xl text-violet-400"></i></div><h3 class="text-2xl font-bold text-white mb-2">Autoestima</h3><p class="text-gray-400">Fortaleça sua autoimagem e confiança para se relacionar melhor consigo mesmo e com o mundo.</p></div>
+                    <div class="glow-card bg-slate-800/50 backdrop-blur-lg rounded-xl border border-white/10 p-8 text-center reveal"><div class="flex justify-center mb-4"><i class="card-icon fa-solid fa-brain text-5xl text-violet-400"></i></div><h3 class="text-2xl font-bold text-white mb-2">Estresse</h3><p class="text-gray-400">Desenvolva estratégias para lidar com a pressão do dia a dia de forma mais equilibrada.</p></div>
+                    <div class="glow-card bg-slate-800/50 backdrop-blur-lg rounded-xl border border-white/10 p-8 text-center reveal"><div class="flex justify-center mb-4"><i class="card-icon fa-solid fa-magnifying-glass text-5xl text-violet-400"></i></div><h3 class="text-2xl font-bold text-white mb-2">Autoconhecimento</h3><p class="text-gray-400">Explore quem você é, entenda seus padrões e descubra seu potencial para uma vida mais autêntica.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Como Funciona -->
+        <section id="como-funciona" class="py-24 bg-slate-900">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold text-white mb-16 reveal">Como Funciona o Processo Terapêutico</h2>
+                <div class="flex flex-col md:flex-row items-stretch justify-center gap-8 md:gap-4">
+                    <!-- Etapas do processo -->
+                    <div class="w-full md:w-1/4 reveal"><div class="glow-card bg-slate-800/50 backdrop-blur-lg rounded-xl border border-white/10 p-6 h-full flex flex-col"><h3 class="text-2xl font-bold text-violet-400 mb-3">1. Contato Inicial</h3><p class="text-gray-400">Você envia uma mensagem. É o primeiro passo, sem compromisso, para esclarecer dúvidas.</p></div></div>
+                    <div class="hidden md:flex items-center text-violet-400/50 reveal"><i class="fas fa-arrow-right text-3xl"></i></div>
+                    <div class="w-full md:w-1/4 reveal"><div class="glow-card bg-slate-800/50 backdrop-blur-lg rounded-xl border border-white/10 p-6 h-full flex flex-col"><h3 class="text-2xl font-bold text-violet-400 mb-3">2. Primeira Sessão</h3><p class="text-gray-400">Um espaço de acolhimento para nos conhecermos e entendermos seus objetivos.</p></div></div>
+                    <div class="hidden md:flex items-center text-violet-400/50 reveal"><i class="fas fa-arrow-right text-3xl"></i></div>
+                    <div class="w-full md:w-1/4 reveal"><div class="glow-card bg-slate-800/50 backdrop-blur-lg rounded-xl border border-white/10 p-6 h-full flex flex-col"><h3 class="text-2xl font-bold text-violet-400 mb-3">3. As Sessões</h3><p class="text-gray-400">Encontros semanais para aprofundar em suas questões, com sigilo e segurança.</p></div></div>
+                    <div class="hidden md:flex items-center text-violet-400/50 reveal"><i class="fas fa-arrow-right text-3xl"></i></div>
+                    <div class="w-full md:w-1/4 reveal"><div class="glow-card bg-slate-800/50 backdrop-blur-lg rounded-xl border border-white/10 p-6 h-full flex flex-col"><h3 class="text-2xl font-bold text-violet-400 mb-3">4. Sua Evolução</h3><p class="text-gray-400">Um processo contínuo de autoconhecimento, visando mais bem-estar e autonomia.</p></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Sobre Mim -->
+        <section id="sobre" class="py-24 bg-slate-900">
+            <div class="container mx-auto px-6 flex flex-col md:flex-row items-center gap-16">
+                <div class="md:w-2/5 w-full flex justify-center reveal">
+                    <img src="https://i.imgur.com/m4fui4x.png" alt="Foto do psicólogo Luiz Henrique" class="rounded-2xl shadow-lg w-full max-w-sm h-auto object-cover transition-transform duration-500 hover:scale-105">
+                </div>
+                <div class="md:w-3/5 w-full text-center md:text-left reveal">
+                    <h2 class="text-4xl font-bold text-white mb-6">Prazer, sou Luiz</h2>
+                    <p class="text-gray-400 mb-4 text-lg leading-relaxed">Sou psicólogo clínico (CRP XX/XXXXX), apaixonado por guiar pessoas em suas jornadas de autoconhecimento e transformação. Minha missão é oferecer um espaço seguro e livre de julgamentos para que você possa florescer.</p>
+                    <p class="text-gray-400 text-lg leading-relaxed mb-8">Com formação em [Sua Formação] e especialização em [Sua Especialização], utilizo uma abordagem [Sua Abordagem, ex: Humanista] para te ajudar a encontrar suas próprias respostas e construir uma vida com mais significado.</p>
+                    <a href="#contato" class="cta-button inline-block text-white font-bold py-3 px-8 rounded-full">Vamos conversar?</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Abordagem -->
+        <section id="abordagem" class="py-24 bg-slate-900">
+            <div class="container mx-auto px-6">
+                 <div class="glow-card max-w-4xl mx-auto bg-slate-800/50 backdrop-blur-lg rounded-xl border border-white/10 p-8 md:p-12 text-center reveal">
+                    <div class="flex justify-center mb-6"><i class="card-icon fa-solid fa-lightbulb text-5xl text-violet-400"></i></div>
+                    <h2 class="text-4xl font-bold text-white mb-6">Minha Abordagem Terapêutica</h2>
+                    <p class="text-lg text-gray-300 leading-relaxed max-w-3xl mx-auto">Trabalho com a abordagem [Nome da Abordagem, ex: Humanista], que acredita no potencial de cada indivíduo para o crescimento e a autorrealização. Nas nossas sessões, o foco estará em sua experiência, sentimentos e na busca por um sentido autêntico para sua vida. Vamos explorar juntos suas forças e recursos internos para superar os desafios.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Preciso de Terapia? -->
+        <section id="ferramentas" class="py-24 bg-slate-900">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold text-white mb-16 reveal">Preciso de Terapia?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <div class="glow-card bg-slate-800/50 backdrop-blur-lg rounded-xl border border-white/10 p-8 flex flex-col justify-between reveal"><h3 class="text-2xl font-bold text-white mb-4">Quando procurar ajuda?</h3><p class="text-gray-400 mb-6">Se você se sente sobrecarregado, triste com frequência, ou se padrões negativos se repetem em sua vida, a terapia pode ser um caminho de transformação.</p><button id="open-breathing-modal" class="mt-auto cta-button text-white font-bold py-2 px-4 rounded-lg">Iniciar Exercício de Respiração</button></div>
+                    <div class="glow-card bg-slate-800/50 backdrop-blur-lg rounded-xl border border-white/10 p-8 flex flex-col justify-between reveal">
+                        <h3 class="text-2xl font-bold text-white mb-4">Uma Palavra de Aconchego</h3>
+                        <p id="frase-aleatoria" class="text-violet-300 text-lg flex-grow flex items-center justify-center italic transition-opacity duration-500">"Clique no botão para receber uma mensagem."</p>
+                        <button id="gerar-frase" class="mt-auto cta-button text-white font-bold py-2 px-4 rounded-lg">Gerar Frase</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Depoimentos -->
+        <section id="depoimentos" class="py-24 overflow-hidden bg-slate-900">
+            <div class="container mx-auto text-center"><h2 class="text-4xl font-bold text-white mb-16 reveal">O que os pacientes dizem</h2></div>
+            <div class="scroller reveal" data-speed="slow">
+                <div class="scroller__inner">
+                    <!-- Depoimentos com a nova animação -->
+                    <div class="flex-shrink-0 w-full md:w-1/2 lg:w-1/3 p-5"><div class="glow-card bg-slate-800/50 backdrop-blur-lg rounded-xl border border-white/10 p-10 h-full flex flex-col justify-center items-center"><i class="fas fa-quote-left text-4xl text-violet-400 mb-5"></i><p class="text-gray-400 italic mb-5">"Encontrei um lugar seguro para me expressar. O Dr. me ajudou a ver as coisas de uma nova perspectiva. Sou muito grato!"</p><p class="text-gray-100 font-semibold">- Paciente A</p></div></div>
+                    <div class="flex-shrink-0 w-full md:w-1/2 lg:w-1/3 p-5"><div class="glow-card bg-slate-800/50 backdrop-blur-lg rounded-xl border border-white/10 p-10 h-full flex flex-col justify-center items-center"><i class="fas fa-quote-left text-4xl text-violet-400 mb-5"></i><p class="text-gray-400 italic mb-5">"As sessões me ajudaram a entender melhor meus sentimentos e a construir uma vida mais equilibrada. Profissionalismo impressionante."</p><p class="text-gray-100 font-semibold">- Paciente B</p></div></div>
+                    <div class="flex-shrink-0 w-full md:w-1/2 lg:w-1/3 p-5"><div class="glow-card bg-slate-800/50 backdrop-blur-lg rounded-xl border border-white/10 p-10 h-full flex flex-col justify-center items-center"><i class="fas fa-quote-left text-4xl text-violet-400 mb-5"></i><p class="text-gray-400 italic mb-5">"O processo terapêutico foi um divisor de águas na minha vida. Consegui superar desafios que pareciam impossíveis. Recomendo!"</p><p class="text-gray-100 font-semibold">- Paciente C</p></div></div>
+                    <div class="flex-shrink-0 w-full md:w-1/2 lg:w-1/3 p-5"><div class="glow-card bg-slate-800/50 backdrop-blur-lg rounded-xl border border-white/10 p-10 h-full flex flex-col justify-center items-center"><i class="fas fa-quote-left text-4xl text-violet-400 mb-5"></i><p class="text-gray-400 italic mb-5">"Encontrei um lugar seguro para me expressar. O Dr. me ajudou a ver as coisas de uma nova perspectiva. Sou muito grato!"</p><p class="text-gray-100 font-semibold">- Paciente A</p></div></div>
+                    <div class="flex-shrink-0 w-full md:w-1/2 lg:w-1/3 p-5"><div class="glow-card bg-slate-800/50 backdrop-blur-lg rounded-xl border border-white/10 p-10 h-full flex flex-col justify-center items-center"><i class="fas fa-quote-left text-4xl text-violet-400 mb-5"></i><p class="text-gray-400 italic mb-5">"As sessões me ajudaram a entender melhor meus sentimentos e a construir uma vida mais equilibrada. Profissionalismo impressionante."</p><p class="text-gray-100 font-semibold">- Paciente B</p></div></div>
+                    <div class="flex-shrink-0 w-full md:w-1/2 lg:w-1/3 p-5"><div class="glow-card bg-slate-800/50 backdrop-blur-lg rounded-xl border border-white/10 p-10 h-full flex flex-col justify-center items-center"><i class="fas fa-quote-left text-4xl text-violet-400 mb-5"></i><p class="text-gray-400 italic mb-5">"O processo terapêutico foi um divisor de águas na minha vida. Consegui superar desafios que pareciam impossíveis. Recomendo!"</p><p class="text-gray-100 font-semibold">- Paciente C</p></div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Dúvidas Frequentes -->
+        <section id="duvidas" class="py-24 bg-slate-900">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold text-white mb-16 reveal">Dúvidas Frequentes</h2>
+                <div class="max-w-3xl mx-auto text-left space-y-4">
+                    <!-- Item do Acordeão -->
+                    <div class="accordion-item bg-slate-800/50 rounded-lg reveal">
+                        <button class="accordion-header w-full p-6 flex justify-between items-center text-left">
+                            <h3 class="text-xl font-semibold text-gray-100">Como funciona a terapia online?</h3>
+                            <i class="accordion-icon fas fa-chevron-down text-violet-400 transition-transform duration-300"></i>
+                        </button>
+                        <div class="accordion-content"><p class="text-gray-400 px-6">A terapia online é uma modalidade prática e segura. As sessões ocorrem por videoconferência em um ambiente sigiloso, permitindo que você realize a terapia do conforto da sua casa e com horários flexíveis.</p></div>
+                    </div>
+                    <!-- Item do Acordeão -->
+                    <div class="accordion-item bg-slate-800/50 rounded-lg reveal">
+                        <button class="accordion-header w-full p-6 flex justify-between items-center text-left">
+                            <h3 class="text-xl font-semibold text-gray-100">Qual a duração e frequência das sessões?</h3>
+                            <i class="accordion-icon fas fa-chevron-down text-violet-400 transition-transform duration-300"></i>
+                        </button>
+                        <div class="accordion-content"><p class="text-gray-400 px-6">Geralmente, cada sessão dura em torno de 50 minutos. A frequência mais comum é semanal, mas isso pode ser ajustado de acordo com suas necessidades e objetivos terapêuticos, o que definiremos juntos.</p></div>
+                    </div>
+                    <!-- Item do Acordeão -->
+                    <div class="accordion-item bg-slate-800/50 rounded-lg reveal">
+                        <button class="accordion-header w-full p-6 flex justify-between items-center text-left">
+                            <h3 class="text-xl font-semibold text-gray-100">Qual o valor da sessão?</h3>
+                            <i class="accordion-icon fas fa-chevron-down text-violet-400 transition-transform duration-300"></i>
+                        </button>
+                        <div class="accordion-content"><p class="text-gray-400 px-6">O valor da sessão será informado em nosso primeiro contato. Entre em contato para que eu possa te passar todas as informações detalhadas sobre o investimento no seu bem-estar.</p></div>
+                    </div>
+                    <!-- Item do Acordeão -->
+                    <div class="accordion-item bg-slate-800/50 rounded-lg reveal">
+                        <button class="accordion-header w-full p-6 flex justify-between items-center text-left">
+                            <h3 class="text-xl font-semibold text-gray-100">Tudo que eu disser é confidencial?</h3>
+                            <i class="accordion-icon fas fa-chevron-down text-violet-400 transition-transform duration-300"></i>
+                        </button>
+                        <div class="accordion-content"><p class="text-gray-400 px-6">Absolutamente. O sigilo é um pilar fundamental da psicoterapia e é protegido pelo Código de Ética Profissional do Psicólogo. Tudo o que for discutido nas sessões é estritamente confidencial.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Contato -->
+        <section id="contato" class="py-24 bg-slate-900">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold text-white mb-4 reveal">Vamos dar o primeiro passo juntos?</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto mb-12 reveal">Sua jornada de transformação começa com uma simples conversa. Me envie uma mensagem e vamos agendar nosso primeiro encontro.</p>
+                <form id="contactForm" class="max-w-xl mx-auto space-y-6 reveal">
+                    <input type="text" id="contact-name" name="name" placeholder="Seu Nome" class="w-full p-4 rounded-md border border-gray-700 bg-slate-800/50 text-gray-100 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all" required>
+                    <textarea id="contact-message" name="message" placeholder="Deixe sua mensagem ou dúvida aqui..." rows="5" class="w-full p-4 rounded-md border border-gray-700 bg-slate-800/50 text-gray-100 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all" required></textarea>
+                    <button type="submit" class="w-full cta-button text-white font-bold py-4 rounded-md shadow-lg flex items-center justify-center text-lg"><i class="fab fa-whatsapp text-2xl mr-3"></i> Enviar Mensagem</button>
+                </form>
+                <div class="mt-20 reveal">
+                    <h3 class="text-2xl font-semibold text-gray-100 mb-6">Ou me encontre nas redes sociais:</h3>
+                    <div class="flex justify-center space-x-8 items-center">
+                        <a href="#" target="_blank" class="text-gray-400 hover:text-green-500 transition-transform duration-300 hover:scale-110" aria-label="Link para o WhatsApp"><i class="fab fa-whatsapp text-4xl"></i></a>
+                        <a href="#" target="_blank" class="text-gray-400 hover:text-pink-500 transition-transform duration-300 hover:scale-110" aria-label="Link para o Instagram"><i class="fab fa-instagram text-4xl"></i></a>
+                        <a href="#" target="_blank" class="text-gray-400 hover:text-violet-500 transition-transform duration-300 hover:scale-110" aria-label="Link para o TikTok"><i class="fab fa-tiktok text-4xl"></i></a>
+                        <a href="mailto:seuemail@example.com" class="text-gray-400 hover:text-blue-400 transition-transform duration-300 hover:scale-110" aria-label="Link para enviar um e-mail"><i class="fas fa-envelope text-4xl"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="py-8 mt-12 border-t border-white/10">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <p>&copy; 2025 Luiz Henrique Gadelha Fernandes | CRP XX/XXXXX. Todos os direitos reservados.</p>
+            <p class="text-sm mt-2">Psicoterapia | Atendimento Online ou Presencial em Mossoró - RN</p>
+        </div>
+    </footer>
+
+    <!-- Botão Voltar ao Topo -->
+    <a href="#inicio" id="back-to-top" class="fixed bottom-6 right-6 bg-purple-600 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg opacity-0 transform translate-y-4 pointer-events-none hover:bg-purple-700 transition-all duration-300" aria-label="Voltar ao topo">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- Modal de Respiração -->
+    <div id="breathing-modal" class="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm flex items-center justify-center p-4 z-[100] opacity-0 pointer-events-none transition-opacity duration-500">
+        <div id="modal-content" class="bg-slate-900 rounded-lg shadow-xl p-8 max-w-sm w-full relative text-center border border-white/10 transform scale-95 transition-transform duration-500">
+            <button id="close-breathing-modal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-100 text-3xl leading-none" aria-label="Fechar modal de respiração">&times;</button>
+            <h3 class="text-2xl font-semibold text-white mb-6">Respire Fundo</h3>
+            <div class="relative w-48 h-48 mx-auto flex items-center justify-center">
+                <div class="absolute inset-0 bg-violet-500/10 rounded-full"></div>
+                <div id="breathing-circle-container" class="w-full h-full flex items-center justify-center">
+                    <div id="breathing-circle" class="w-28 h-28 bg-violet-500/20 rounded-full transition-transform duration-300"></div>
+                </div>
+                <p id="breathing-text" class="absolute text-white font-semibold text-lg z-10 select-none"></p>
+            </div>
+            <p class="text-gray-400 mt-6">Siga as instruções para acalmar a mente.</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- CONFIGURAÇÕES GERAIS ---
+            const phoneNumber = '5584999999999'; // SEU NÚMERO DE WHATSAPP AQUI
+
+            const frases = [
+                "O que um homem pode ser, ele deve ser. Essa necessidade chamamos de autorrealização. - Abraham Maslow",
+                "A vida não examinada não vale a pena ser vivida. - Sócrates",
+                "Não podemos mudar, não podemos nos afastar do que somos, até que aceitemos o que somos. - Carl Rogers",
+                "Sua visão se tornará clara somente quando você puder olhar para o seu próprio coração. Quem olha para fora, sonha; quem olha para dentro, desperta. - Carl Jung"
+            ];
+
+            // --- FUNÇÕES DE INICIALIZAÇÃO ---
+
+            const initScrollObserver = () => {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.15 }); // Limiar ajustado para melhor timing
+                document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+            };
+
+            const initHeaderScroll = () => {
+                const header = document.getElementById('main-header');
+                if (!header) return;
+
+                let lastScrollTop = 0;
+                window.addEventListener('scroll', () => {
+                    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    
+                    header.classList.toggle('scrolled', scrollTop > 50);
+
+                    if (scrollTop > lastScrollTop && scrollTop > 100) { 
+                        header.classList.add('header-hidden');
+                    } else {
+                        header.classList.remove('header-hidden');
+                    }
+                    
+                    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+                }, { passive: true });
+            };
+
+            const initMobileMenu = () => {
+                const menuButton = document.getElementById('mobile-menu-button');
+                const mobileMenu = document.getElementById('mobile-menu');
+                if (menuButton && mobileMenu) {
+                    menuButton.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+                    mobileMenu.querySelectorAll('a').forEach(link => {
+                        link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+                    });
+                }
+            };
+
+            const initAccordion = () => {
+                document.querySelectorAll('.accordion-item').forEach(item => {
+                    const header = item.querySelector('.accordion-header');
+                    const content = item.querySelector('.accordion-content');
+                    const icon = header.querySelector('.accordion-icon');
+
+                    if (header && content && icon) {
+                        header.addEventListener('click', () => {
+                            const isActive = item.classList.contains('active');
+                            
+                            // Fecha todos os outros itens
+                            document.querySelectorAll('.accordion-item.active').forEach(otherItem => {
+                                if (otherItem !== item) {
+                                    otherItem.classList.remove('active');
+                                    otherItem.querySelector('.accordion-content').style.maxHeight = null;
+                                    otherItem.querySelector('.accordion-content').style.paddingBottom = '0px';
+                                    otherItem.querySelector('.accordion-icon').style.transform = 'rotate(0deg)';
+                                }
+                            });
+
+                            // Abre ou fecha o item clicado
+                            if (isActive) {
+                                item.classList.remove('active');
+                                content.style.maxHeight = null;
+                                content.style.paddingBottom = '0px';
+                                icon.style.transform = 'rotate(0deg)';
+                            } else {
+                                item.classList.add('active');
+                                content.style.maxHeight = content.scrollHeight + 'px';
+                                content.style.paddingBottom = '1.5rem'; // Equivalente a pb-6
+                                icon.style.transform = 'rotate(180deg)';
+                            }
+                        });
+                    }
+                });
+            };
+
+            const initContactForm = () => {
+                const contactForm = document.getElementById('contactForm');
+                if (contactForm) {
+                    contactForm.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        const name = document.getElementById('contact-name').value;
+                        const message = document.getElementById('contact-message').value;
+                        const whatsappText = `Olá, meu nome é ${name}. Gostaria de mais informações. Mensagem: ${message}`;
+                        const encodedText = encodeURIComponent(whatsappText);
+                        window.open(`https://wa.me/${phoneNumber}?text=${encodedText}`, '_blank');
+                    });
+                }
+            };
+
+            const initBackToTop = () => {
+                const button = document.getElementById('back-to-top');
+                if (button) {
+                    window.addEventListener('scroll', () => {
+                        if (window.scrollY > 300) {
+                            button.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+                        } else {
+                            button.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+                        }
+                    }, { passive: true });
+                }
+            };
+
+            const initQuoteGenerator = () => {
+                const button = document.getElementById('gerar-frase');
+                const display = document.getElementById('frase-aleatoria');
+                if (button && display) {
+                    button.addEventListener('click', () => {
+                        const randomIndex = Math.floor(Math.random() * frases.length);
+                        display.style.opacity = '0';
+                        setTimeout(() => {
+                           display.textContent = `"${frases[randomIndex]}"`;
+                           display.style.opacity = '1';
+                        }, 500);
+                    });
+                }
+            };
+
+            const initBreathingModal = () => {
+                const openBtn = document.getElementById('open-breathing-modal');
+                const closeBtn = document.getElementById('close-breathing-modal');
+                const modal = document.getElementById('breathing-modal');
+                const modalContent = document.getElementById('modal-content');
+                const circle = document.getElementById('breathing-circle');
+                const text = document.getElementById('breathing-text');
+                let textInterval;
+
+                const breathingInstructions = [
+                    { instruction: 'Inspire...', duration: 4000 },
+                    { instruction: 'Segure', duration: 4000 },
+                    { instruction: 'Expire...', duration: 6000 },
+                    { instruction: 'Pausa', duration: 2000 } 
+                ];
+
+                const startBreathing = () => {
+                    if (!circle || !text) return;
+                    circle.classList.add('breathing-animation');
+                    
+                    let instructionIndex = 0;
+                    const runTextCycle = () => {
+                        const currentInstruction = breathingInstructions[instructionIndex];
+                        text.textContent = currentInstruction.instruction;
+                        
+                        instructionIndex = (instructionIndex + 1) % breathingInstructions.length;
+                        textInterval = setTimeout(runTextCycle, currentInstruction.duration);
+                    };
+                    runTextCycle();
+                };
+
+                const stopBreathing = () => {
+                    clearTimeout(textInterval);
+                    if (circle) circle.classList.remove('breathing-animation');
+                    if(text) text.textContent = '';
+                };
+                
+                const openModal = () => {
+                    if (modal && modalContent) {
+                        modal.classList.remove('opacity-0', 'pointer-events-none');
+                        modalContent.classList.remove('scale-95');
+                        document.body.style.overflow = 'hidden';
+                        startBreathing();
+                    }
+                };
+                
+                const closeModal = () => {
+                    if (modal && modalContent) {
+                        modal.classList.add('opacity-0', 'pointer-events-none');
+                        modalContent.classList.add('scale-95');
+                        document.body.style.overflow = '';
+                        stopBreathing();
+                    }
+                };
+
+                if (openBtn) openBtn.addEventListener('click', openModal);
+                if (closeBtn) closeBtn.addEventListener('click', closeModal);
+                if (modal) modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal();
+                });
+            };
+
+            // --- CHAMADA DAS FUNÇÕES ---
+            initScrollObserver();
+            initHeaderScroll();
+            initMobileMenu();
+            initAccordion();
+            initContactForm();
+            initBackToTop();
+            initQuoteGenerator();
+            initBreathingModal();
+        });
+    </script>
+</body>
+</html>
