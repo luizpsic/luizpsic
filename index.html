@@ -11,7 +11,8 @@
 
     <meta property="og:title" content="Luiz Henrique - Psicólogo em Mossoró, RN">
     <meta property="og:description" content="Um espaço de acolhimento para sua jornada de bem-estar e autoconhecimento. Terapia online e presencial.">
-    <meta property="og:image" content="imagens/">
+    <!-- IMPORTANTE: Para a imagem de compartilhamento funcionar, você precisa usar a URL completa do seu site. Ex: https://seusite.com/imagens/sobre.jpg -->
+    <meta property="og:image" content="imagens/sobre.jpg">
     <meta property="og:url" content="https://www.luizpsic.com.br">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="pt_BR">
@@ -163,10 +164,12 @@
 
         /* Animação do menu mobile */
         #mobile-menu {
-            transition: transform 0.4s var(--ease-out-quart), opacity 0.4s ease;
+            transition: transform 0.4s var(--ease-out-quart), opacity 0.4s ease, max-height 0.4s ease-in-out;
             transform: translateY(-20px);
             opacity: 0;
             pointer-events: none;
+            overflow: hidden;
+            max-height: 0;
         }
         #mobile-menu.open {
             transform: translateY(0);
@@ -204,7 +207,7 @@
 
     <main>
         <!-- Seção Início -->
-        <section id="inicio" class="h-screen bg-cover bg-center flex items-center justify-center relative" style="background-image: url('imagens/inicio.jpg');">
+        <section id="inicio" class="h-screen bg-cover flex items-center justify-center relative" style="background-image: url('imagens/inicio.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center 34%;">
             <div class="absolute inset-0 bg-slate-900 bg-opacity-70"></div>
             <div class="relative text-center text-white px-4 flex flex-col items-center">
                 <h1 class="text-5xl md:text-7xl font-black tracking-tight" style="animation: slideUp 1s var(--ease-out-quart) forwards;">Luiz Henrique</h1>
@@ -251,7 +254,13 @@
         <section id="sobre" class="py-24 bg-slate-900">
             <div class="container mx-auto px-6 flex flex-col md:flex-row items-center gap-16">
                 <div class="md:w-2/5 w-full flex justify-center reveal">
-                    <img src="imagens/sobre.jpg" alt="Foto do psicólogo Luiz Henrique" class="rounded-2xl shadow-lg w-full max-w-sm h-auto object-cover transition-transform duration-500 hover:scale-105">
+                    <!-- Container para cortar a imagem -->
+                    <div class="w-80 h-80 md:w-96 md:h-96 rounded-2xl shadow-lg overflow-hidden mx-auto md:mx-0">
+                        <img src="imagens/sobre.jpg" 
+                             alt="Foto do psicólogo Luiz Henrique" 
+                             class="object-cover transition-transform duration-500 hover:scale-105"
+                             style="transform: scale(1.2); object-position: center 70%;">
+                    </div>
                 </div>
                 <div class="md:w-3/5 w-full text-center md:text-left reveal">
                     <h2 class="text-4xl font-bold text-white mb-6">Prazer, sou Luiz</h2>
@@ -449,9 +458,23 @@
                 const menuButton = document.getElementById('mobile-menu-button');
                 const mobileMenu = document.getElementById('mobile-menu');
                 if (menuButton && mobileMenu) {
-                    menuButton.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+                    const toggleMenu = () => {
+                        mobileMenu.classList.toggle('open');
+                        if (mobileMenu.classList.contains('open')) {
+                            mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
+                        } else {
+                            mobileMenu.style.maxHeight = null;
+                        }
+                    };
+
+                    menuButton.addEventListener('click', toggleMenu);
+                    
                     mobileMenu.querySelectorAll('a').forEach(link => {
-                        link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+                        link.addEventListener('click', () => {
+                            if (mobileMenu.classList.contains('open')) {
+                                toggleMenu();
+                            }
+                        });
                     });
                 }
             };
@@ -636,5 +659,3 @@
     </script>
 </body>
 </html>
-
-
