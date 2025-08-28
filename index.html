@@ -350,18 +350,18 @@
             <div class="container mx-auto px-6 text-center">
                 <h2 class="text-4xl font-bold text-white mb-4 reveal">Vamos dar o primeiro passo juntos?</h2>
                 <p class="text-gray-400 max-w-2xl mx-auto mb-12 reveal">Sua jornada de transformação começa com uma simples conversa. Me envie uma mensagem e vamos agendar nosso primeiro encontro.</p>
-                <form id="contactForm" class="max-w-xl mx-auto space-y-6 reveal">
-                    <input type="text" id="contact-name" name="name" placeholder="Seu Nome" class="w-full p-4 rounded-md border border-gray-700 bg-slate-800/50 text-gray-100 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all" required>
-                    <textarea id="contact-message" name="message" placeholder="Deixe sua mensagem ou dúvida aqui..." rows="5" class="w-full p-4 rounded-md border border-gray-700 bg-slate-800/50 text-gray-100 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all" required></textarea>
-                    <button type="submit" class="w-full cta-button text-white font-bold py-4 rounded-md shadow-lg flex items-center justify-center text-lg"><i class="fab fa-whatsapp text-2xl mr-3"></i> Enviar Mensagem</button>
-                </form>
+                <div class="max-w-xl mx-auto space-y-6 reveal">
+                    <input type="text" id="contact-name" name="name" placeholder="Seu Nome" class="w-full p-4 rounded-md border border-gray-700 bg-slate-800/50 text-gray-100 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all">
+                    <textarea id="contact-message" name="message" placeholder="Deixe sua mensagem ou dúvida aqui..." rows="5" class="w-full p-4 rounded-md border border-gray-700 bg-slate-800/50 text-gray-100 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all"></textarea>
+                    <button type="button" id="send-whatsapp-btn" class="w-full cta-button text-white font-bold py-4 rounded-md shadow-lg flex items-center justify-center text-lg"><i class="fab fa-whatsapp text-2xl mr-3"></i> Enviar Mensagem</button>
+                </div>
                 <div class="mt-20 reveal">
                     <h3 class="text-2xl font-semibold text-gray-100 mb-6">Ou me encontre nas redes sociais:</h3>
                     <div class="flex justify-center space-x-8 items-center">
                         <a href="#" target="_blank" class="text-gray-400 hover:text-green-500 transition-transform duration-300 hover:scale-110" aria-label="Link para o WhatsApp"><i class="fab fa-whatsapp text-4xl"></i></a>
-                        <a href="#" target="_blank" class="text-gray-400 hover:text-pink-500 transition-transform duration-300 hover:scale-110" aria-label="Link para o Instagram"><i class="fab fa-instagram text-4xl"></i></a>
+                        <a href="https://www.instagram.com/luiz.psic/" target="_blank" class="text-gray-400 hover:text-pink-500 transition-transform duration-300 hover:scale-110" aria-label="Link para o Instagram"><i class="fab fa-instagram text-4xl"></i></a>
                         <a href="#" target="_blank" class="text-gray-400 hover:text-violet-500 transition-transform duration-300 hover:scale-110" aria-label="Link para o TikTok"><i class="fab fa-tiktok text-4xl"></i></a>
-                        <a href="mailto:seuemail@example.com" class="text-gray-400 hover:text-blue-400 transition-transform duration-300 hover:scale-110" aria-label="Link para enviar um e-mail"><i class="fas fa-envelope text-4xl"></i></a>
+                        <a href="mailto:contato.luizpsic@gmail.com" class="text-gray-400 hover:text-blue-400 transition-transform duration-300 hover:scale-110" aria-label="Link para enviar um e-mail"><i class="fas fa-envelope text-4xl"></i></a>
                     </div>
                 </div>
             </div>
@@ -402,6 +402,7 @@
             
             // --- CONFIGURAÇÕES GERAIS ---
             const phoneNumber = '5584999999999'; // SEU NÚMERO DE WHATSAPP AQUI
+            const whatsappBaseUrl = `https://wa.me/${phoneNumber}`;
 
             const frases = [
                 "O que um homem pode ser, ele deve ser. Essa necessidade chamamos de autorrealização. - Abraham Maslow",
@@ -493,17 +494,42 @@
             };
 
             const initContactForm = () => {
-                const contactForm = document.getElementById('contactForm');
-                if (contactForm) {
-                    contactForm.addEventListener('submit', (e) => {
-                        e.preventDefault();
+                const sendButton = document.getElementById('send-whatsapp-btn');
+                if (sendButton) {
+                    sendButton.addEventListener('click', () => {
                         const name = document.getElementById('contact-name').value;
                         const message = document.getElementById('contact-message').value;
-                        const whatsappText = `Olá, meu nome é ${name}. Gostaria de mais informações. Mensagem: ${message}`;
-                        const encodedText = encodeURIComponent(whatsappText);
-                        window.open(`https://wa.me/${phoneNumber}?text=${encodedText}`, '_blank');
+                        let whatsappText = '';
+
+                        if (name.trim() !== '' || message.trim() !== '') {
+                           let finalMessage = "Olá";
+                           if (name.trim() !== '') {
+                               finalMessage += `, meu nome é ${name}`;
+                           }
+                           finalMessage += ".";
+                           if (message.trim() !== '') {
+                               finalMessage += `\n\n${message.trim()}`;
+                           }
+                           whatsappText = finalMessage;
+                        }
+                        
+                        const finalUrl = whatsappText 
+                            ? `${whatsappBaseUrl}?text=${encodeURIComponent(whatsappText)}` 
+                            : whatsappBaseUrl;
+
+                        window.open(finalUrl, '_blank');
                     });
                 }
+            };
+            
+            const initCtaLinks = () => {
+                // Atualiza os botões CTA que são links
+                document.querySelectorAll('a.cta-button[href="#contato"]').forEach(link => {
+                    link.href = whatsappBaseUrl;
+                    link.target = '_blank';
+                });
+                // Atualiza o link do WhatsApp nos ícones de redes sociais
+                document.querySelector('a[aria-label="Link para o WhatsApp"]').href = whatsappBaseUrl;
             };
 
             const initBackToTop = () => {
@@ -602,6 +628,7 @@
             initMobileMenu();
             initAccordion();
             initContactForm();
+            initCtaLinks();
             initBackToTop();
             initQuoteGenerator();
             initBreathingModal();
